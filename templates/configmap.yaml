@@ -1,0 +1,12 @@
+{{- if .Values.spring.spring_application_json -}}
+{{- $fullName := include "springboot.fullname" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullName }}-config
+  labels:
+    {{- include "springboot.labels" . | nindent 4 }}
+data:
+  spring-application.json: |
+    {{ .Values.spring.spring_application_json | toJson }}
+{{- end -}}
